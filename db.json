@@ -1,0 +1,36 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "computer",
+      "price": 4300,
+      "quantity": 600,
+      "selected": true,
+      "available": true
+    },
+    {
+      "id": 3,
+      "name": "13pro",
+      "price": "8000",
+      "quantity": "300",
+      "selected": null,
+      "available": null
+    },
+    {
+      "name": "test",
+      "price": "121",
+      "quantity": "3",
+      "selected": true,
+      "avaliable": true,
+      "id": 4
+    },
+    {
+      "name": "farid",
+      "price": "2",
+      "quantity": "22",
+      "selected": true,
+      "avaliable": true,
+      "id": 6
+    }
+  ]
+}
