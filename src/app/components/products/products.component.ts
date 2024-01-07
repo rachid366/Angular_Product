@@ -2,9 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {ProductsService} from "../../services/products.service";
 import {Product} from "../../model/product.model";
 import {Observable, of} from "rxjs";
-import {AppDataState, DataStateEnum} from "../../state/product.state";
+import {ActionEvent, AppDataState, DataStateEnum, ProductActionsTypes} from "../../state/product.state";
 import {catchError, map, startWith} from "rxjs/operators";
 import {Router} from "@angular/router";
+import {EventDriverService} from "../../state/event.driver.service";
 
 @Component({
   selector: 'app-products',
@@ -15,9 +16,16 @@ export class ProductsComponent implements OnInit {
 
   products$:Observable<AppDataState<Product[]>> |null=null;
   readonly DataStateEnum=DataStateEnum;
-  constructor(private productsService:ProductsService, private router:Router) { }
+  constructor(
+    private productsService:ProductsService,
+    private router:Router,
+    private eventDrivenService:EventDriverService,
+    ) { }
 
   ngOnInit(): void {
+    this.eventDrivenService.sourceEventSubjectObservable.subscribe((actionEvent:ActionEvent)=>{
+      this.onActionEvent(actionEvent);
+    });
   }
 
   onGetAllProducts() {
@@ -90,5 +98,18 @@ export class ProductsComponent implements OnInit {
 
   onEdit(p: Product) {
     this.router.navigateByUrl("/editProduct/"+p.id);
+  }
+
+  onActionEvent($event: ActionEvent) {
+    switch ($event.type) {
+      case ProductActionsTypes.GET_ALL_PRODUCTS:this.onGetAllProducts();break;
+      case ProductActionsTypes.GET_SELECTED_PRODUCTS:this.onGetSelectedProducts();break;
+      case ProductActionsTypes.GET_AVAILABLE_PRODUCTS:this.onGetAvailableProducts();break;
+      case ProductActionsTypes.SEARCH_PRODUCTS:this.onSearch($event.payload);break;
+      case ProductActionsTypes.NEW_PRODUCTS:this.onNewProduct();break;
+      case ProductActionsTypes.SELECT_PRODUCTS:this.onSelect($event.payload);break;
+      case ProductActionsTypes.DELETE_PRODUCTS:this.onDelete($event.payload);break;
+      case ProductActionsTypes.EDIT_PRODUCTS:this.onEdit($event.payload);break;
+    }
   }
 }

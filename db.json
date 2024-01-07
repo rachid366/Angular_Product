@@ -13,24 +13,24 @@
       "name": "13pro",
       "price": "8000",
       "quantity": "300",
-      "selected": null,
+      "selected": false,
+      "available": true
+    },
+    {
+      "id": 4,
+      "name": "test",
+      "price": "121",
+      "quantity": "33",
+      "selected": false,
       "available": null
     },
     {
-      "name": "test",
-      "price": "121",
-      "quantity": "3",
+      "name": "simoo",
+      "price": 0,
+      "quantity": 0,
       "selected": true,
       "avaliable": true,
-      "id": 4
-    },
-    {
-      "name": "farid",
-      "price": "2",
-      "quantity": "22",
-      "selected": true,
-      "avaliable": true,
-      "id": 6
+      "id": 5
     }
   ]
 }
